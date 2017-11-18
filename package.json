@@ -4,16 +4,20 @@
   "description": "spy on outgoing requests in node",
   "main": "index.js",
   "kuta": {
-    "files": ["tests.js"]
+    "files": [
+      "tests.js"
+    ]
   },
   "scripts": {
+    "postpublish": "md2ghp",
     "test": "kuta"
   },
   "author": "Daniel Lundin <d-dog@d-dog.se>",
   "license": "MIT",
   "devDependencies": {
     "axios": "^0.17.1",
-    "kuta": "^1.3.0"
+    "kuta": "^1.3.0",
+    "md2ghp": "0.0.1"
   },
   "repository": {
     "type": "git",
