@@ -1,6 +1,6 @@
 # request spy
 
-Spy on outgoing request in node. Reports host, path, method, statusCode and time. 
+Spy on outgoing requests in node. Reports host, path, method, statusCode and time. 
 Great for logging, metrics, debugging etc.
 
 `npm install request-spy`
