@@ -13,7 +13,7 @@
 
     <main>
     <h1 id="request-spy">request spy</h1><p>Spy on outgoing requests in node. Reports host, path, method, statusCode and time. 
-Great for logging, metrics, debugging etc.</p>
+Useful for logging, metrics, debugging etc.</p>
 <p><code>npm install request-spy</code></p>
 <h1 id="usage">Usage</h1><pre><code class="lang-js">const requestSpy = require(&#39;request-spy&#39;);
 
@@ -21,6 +21,7 @@ requestSpy.init((host, path, method, status, time) =&gt; {
   console.log(host, path, method, status, time);
 });
 </code></pre>
+<p><a href="LICENSE.txt">MIT License</a> © 2017 Daniel Lundin (<a href="http://twitter.com/danielundin">http://twitter.com/danielundin</a>).</p>
 
     </main>
   </body>
