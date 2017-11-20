@@ -1,7 +1,7 @@
 const http = require('http');
 const monkeypatch = require('monkeypatch');
 
-function init(cb) {
+function spy(cb) {
   monkeypatch(http, 'request', (original, options, callback) => {
     
     let startTime = Date.now();
@@ -9,8 +9,26 @@ function init(cb) {
 
     clientRequest.on('response', (message) => {
       const requestTime = Date.now() - startTime;
-      console.log(message.headers);
-      cb(options.hostname, options.path, options.method, message.statusCode, requestTime);
+      cb(null, {
+        hostname: options.hostname,
+        path: options.path,
+        method: options.method,
+        statusCode: message.statusCode,
+        requestTime
+      });
+    });
+
+    clientRequest.on('socket', (socket) => {
+      const requestTime = Date.now() - startTime;
+
+      socket.on('error', (err) => {
+        cb(err, {
+          hostname: options.hostname,
+          path: options.path,
+          method: options.method,
+          requestTime
+        });
+      });
     });
 
     monkeypatch(clientRequest, 'end', (original, ...args) => {
@@ -21,4 +39,11 @@ function init(cb) {
   });
 }
 
-module.exports = init;
+function restore() {
+  http.request.unpatch();
+}
+
+module.exports = {
+  spy,
+  restore
+};
