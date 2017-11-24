@@ -18,7 +18,7 @@
     "axios": "^0.17.1",
     "eslint": "^4.11.0",
     "kuta": "^1.3.0",
-    "md2ghp": "0.0.1"
+    "md2ghp": "0.0.2"
   },
   "repository": {
     "type": "git",
