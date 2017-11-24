@@ -10,7 +10,7 @@ function spy(cb) {
     clientRequest.on('response', (message) => {
       const requestTime = Date.now() - startTime;
       cb(null, {
-        hostname: options.hostname,
+        hostname: options.host || options.hostname,
         path: options.path,
         method: options.method,
         statusCode: message.statusCode,
@@ -23,7 +23,7 @@ function spy(cb) {
 
       socket.on('error', (err) => {
         cb(err, {
-          hostname: options.hostname,
+          hostname: options.host || options.hostname,
           path: options.path,
           method: options.method,
           requestTime
