@@ -1,3 +1,5 @@
+![logo](https://github.com/daniel-lundin/request-spy/raw/master/assets/logo.png)
+
 # request spy
 
 Spy on outgoing requests in node. Reports errors, host, path, method, statusCode and request time. 
