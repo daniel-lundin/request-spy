@@ -1,4 +1,4 @@
-![logo](https://github.com/daniel-lundin/request-spy/raw/master/assets/logo.png)
+![logo](https://github.com/daniel-lundin/request-spy/raw/master/assets/request-spy.png)
 
 # request spy
 
