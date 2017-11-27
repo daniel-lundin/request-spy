@@ -1,6 +1,6 @@
 {
   "name": "request-spy",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "spy on outgoing requests in node",
   "main": "index.js",
   "kuta": {
