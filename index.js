@@ -1,13 +1,14 @@
-const http = require('http');
-const monkeypatch = require('monkeypatch');
+const http = require("http");
+const https = require("https");
+const monkeypatch = require("monkeypatch");
 
 function spy(cb) {
-  monkeypatch(http, 'request', (original, options, callback) => {
+  const patch = (original, options, callback) => {
     const clientRequest = original(options, callback);
     let startTime = Date.now();
     let requestSocket;
 
-    const errorHandler = (err) => {
+    const errorHandler = err => {
       cb(err, {
         hostname: options.host || options.hostname,
         path: options.path,
@@ -15,8 +16,7 @@ function spy(cb) {
       });
     };
 
-
-    clientRequest.once('response', (message) => {
+    clientRequest.once("response", message => {
       const requestTime = Date.now() - startTime;
 
       cb(null, {
@@ -26,29 +26,31 @@ function spy(cb) {
         statusCode: message.statusCode,
         requestTime
       });
-      requestSocket.removeListener('error', errorHandler);
+      requestSocket.removeListener("error", errorHandler);
     });
 
-    clientRequest.on('socket', (socket) => {
+    clientRequest.on("socket", socket => {
       requestSocket = socket;
-      socket.once('error', errorHandler);
+      socket.once("error", errorHandler);
     });
 
-    monkeypatch(clientRequest, 'end', (original, ...args) => {
+    monkeypatch(clientRequest, "end", (original, ...args) => {
       startTime = Date.now();
       original(...args);
     });
 
     return clientRequest;
-  });
+  };
+  monkeypatch(http, "request", patch);
+  monkeypatch(https, "request", patch);
 }
 
 function restore() {
   http.request.unpatch();
+  https.request.unpatch();
 }
 
 module.exports = {
   spy,
   restore
 };
-
